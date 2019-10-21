@@ -1,5 +1,9 @@
 package com.company;
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 public class reStrings {
     private String text = "";
 
@@ -20,29 +24,17 @@ public class reStrings {
     }
     // define- Does string consist of 2 the same digits
     boolean is_string_consists_2num(String str){
-        return str.length() == 2 && str.charAt(0) == str.charAt(1);
+        Pattern pattern = Pattern.compile("^[0-9]{2}$");
+        Matcher matcher = pattern.matcher(str);
+        while(matcher.find()){
+            return true;
+        }
+        return false;
     }
 
     void replace_numeric(){
-        String replaced = "*";
-        String check = "";
-
-        StringBuilder str_builder = new StringBuilder(text);
-        // point has added for correctly processing string
-        str_builder.append('.');
-        for(int index = 0; index < str_builder.length(); index++){
-            if(Character.isDigit(str_builder.charAt(index))){
-                check += str_builder.charAt(index);
-            }
-            else{
-                if(is_string_consists_2num(check))
-                    str_builder.replace(index-2, index, replaced);
-                check = "";
-            }
-        }
-        //point has deleted
-        str_builder.deleteCharAt(str_builder.length()-1);
-        text = str_builder.toString();
+        String new_text = text.replaceAll("[0-9]{2}", "*");
+        text = new_text;
         System.out.println(text);
     }
 }
