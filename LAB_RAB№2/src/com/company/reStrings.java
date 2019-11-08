@@ -27,14 +27,17 @@ public class reStrings {
         Pattern pattern = Pattern.compile("^[0-9]{2}$");
         Matcher matcher = pattern.matcher(str);
         while(matcher.find()){
-            return true;
+            if(str.charAt(0) == str.charAt(1))
+                return true;
+            else
+                return false;
         }
         return false;
     }
 
-    void replace_numeric(){
+    String replace_numeric(){
         String new_text = text.replaceAll("[0-9]{2}", "*");
         text = new_text;
-        System.out.println(text);
+        return text;
     }
 }
